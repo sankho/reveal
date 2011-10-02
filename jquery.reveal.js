@@ -14,6 +14,12 @@
     $('#' + modalLocation).reveal($(this).data());
   });
 
+  var hasAnimation = false;
+  var div = document.createElement('div');
+  div.setAttribute('style', 'transition:top 1s ease;-webkit-transition:top 1s ease;-moz-transition:top 1s ease;');
+  hasAnimation = !!(div.style.transition || div.style.webkitTransition || div.style.MozTransition);
+  delete div;
+
   $.fn.reveal = function (options) {
     var defaults = {
       animation: 'fadeAndPop',                // fade, fadeAndPop, none
@@ -68,6 +74,7 @@
       function closeAnimation() {
         if (!locked) {
           lockModal();
+
           if (options.animation == "fadeAndPop") {
             modalBg.delay(options.animationSpeed).fadeOut(options.animationSpeed);
             modal.animate({
